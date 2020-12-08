@@ -16,6 +16,8 @@ namespace Authentification.API.Routes
         public static class Glossary
         {
             public const string Main = Base + "/glossary";
+
+            public const string Term = Base + "/glossary/{term}";
         }
     }
 }
