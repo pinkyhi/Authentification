@@ -1,6 +1,9 @@
 ﻿using Authentification.API.Routes;
 using Authentification.API.ViewModel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +33,7 @@ namespace Authentification.Controllers
             }
         };
 
+        
         [HttpGet(DefaultRoutes.Glossary.Main)]
         public ActionResult<List<GlossaryItem>> Get()
         {
@@ -53,6 +57,7 @@ namespace Authentification.Controllers
         }
 
         [HttpPost(DefaultRoutes.Glossary.Main)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult Post(GlossaryItem glossaryItem)
         {
             var existingGlossaryItem = Glossary.Find(item =>
@@ -71,6 +76,7 @@ namespace Authentification.Controllers
         }
 
         [HttpPut(DefaultRoutes.Glossary.Main)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult Put(GlossaryItem glossaryItem)
         {
             var existingGlossaryItem = Glossary.Find(item =>
@@ -88,6 +94,7 @@ namespace Authentification.Controllers
         }
 
         [HttpDelete(DefaultRoutes.Glossary.Main)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult Delete(string term)
         {
             var glossaryItem = Glossary.Find(item =>
